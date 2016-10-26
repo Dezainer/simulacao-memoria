@@ -1,0 +1,37 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+
+main{
+	width: 100vw;
+	height: 100vh;
+	background: url('../footage/firewatch.jpg');
+	background-repeat: no-repeat;
+	background-size: 115%;
+	background-position: top center;
+}
+
+.appbar{
+	position: absolute;
+	left: 50%;
+	bottom: 0;
+	transform: translate(-50%,-50%);
+	padding: 0 15px;
+	background: rgba(0,0,0,0.5);
+	border-bottom: 3px solid rgba(0,0,0,0.7);
+}
+.apps{
+	margin-top: -30px;
+}
+.app{
+	padding: 7px 3px;
+	transition: all 0.1s ease-in-out;
+	cursor: pointer;
+}
+.app:hover{
+	transform: scale(1.2);
+	padding: 7px 7px;
+}
+
+/*border-bottom: 2px solid rgb(240,100,50);*/
