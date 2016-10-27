@@ -2,8 +2,9 @@ var webpack = require('webpack');
  
 module.exports = {
   entry: [
+          './model/management.js',
           './components/appbar.js',
-          './model/management.js'
+          './actions/actions.js'
   ],
   output: { path: __dirname, filename: './public/bundle.js' },
   module: {
