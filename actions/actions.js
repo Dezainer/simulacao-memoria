@@ -14,4 +14,4 @@ $('.outter-list').click(function () {
 
 	$(this).find('.seta').children().css('transform', 'rotate('+deg+'deg)');
 	$(this).find('.inner-list').toggle();
-})
+});

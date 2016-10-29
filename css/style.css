@@ -24,6 +24,12 @@ main{
 .apps{
 	margin-top: -30px;
 }
+.apps ul{
+	list-style: none;
+}
+.apps li{
+	display: inline-block;
+}
 .app{
 	padding: 7px 3px;
 	transition: all 0.1s ease-in-out;
