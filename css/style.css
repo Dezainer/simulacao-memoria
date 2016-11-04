@@ -4,6 +4,7 @@
 }
 
 main{
+	position: relative;
 	width: 100vw;
 	height: 100vh;
 	background: url('../footage/firewatch.jpg');
@@ -43,11 +44,17 @@ main{
 /*Window*/
 .window{
 	position: absolute;
-	top: 20%;
-	left: 15%;
 	background: rgb(20,10,8);
 	box-shadow: 0 0 50px rgba(0,0,0,0.35);
 	border: 1px solid rgb(240,100,50);;
+}
+#task-manager{
+	top: 20%;
+	left: 15%;
+}
+#fisical{
+	top: 10%;
+	right: 15%;
 }
 .window .container{
 	padding: 20px;
@@ -81,8 +88,10 @@ p{
 .window .content{
 	margin-top: 20px;
 	background: rgb(5,2,1);
-	height: 210px;
 	overflow-y: auto;
+}
+#task-manager .content{
+	height: 210px;
 }
 .window .content ul{
 	list-style: none;
@@ -124,6 +133,16 @@ p{
 
 .content::-webkit-scrollbar-thumb{
 	background-color: red;
+}
+
+.fisical-block{
+	display: flex;
+}
+.fisical-square{
+	width: 90px;
+	height: 90px;
+	border: 2px solid rgba(240,100,50,0.1);
+	position: relative;
 }
 
 /*border-bottom: 2px solid rgb(240,100,50);*/

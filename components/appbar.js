@@ -58,17 +58,6 @@ var apps = [
 	}
 ];
 
-// var open = [
-// 	{
-// 		"name": "Chrome",
-// 		"size": 4
-// 	},
-// 	{
-// 		"name": "Spotify",
-// 		"size": 2
-// 	}
-// ];
-
 var App = React.createClass({
 
 	render: function () {
@@ -107,7 +96,7 @@ function inner(size) {
 	var inner = [];
 
 	for (var i = 0; i < size; i++) {
-		inner.push(<li>c{i}</li>);
+		inner.push(<li>c{i + 1}</li>);
 	}
 
 	return inner;
@@ -135,7 +124,7 @@ var Manager = React.createClass({
 		}, this);
 
 		return(
-			<div className="window" id="drag">
+			<div className="window" id="task-manager">
 				<div className="header">
 					<span className="button" id="close"> </span>
 					<span className="button" id="max"> </span>
@@ -154,6 +143,12 @@ var Manager = React.createClass({
 		);
 	}
 
+});
+
+var Fisical = React.createClass({
+
+	
+	
 });
 
 var Main = React.createClass({
