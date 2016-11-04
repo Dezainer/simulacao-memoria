@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 
 var apps = [
 	{
-		"name"		:"Arquivos",
+		"name"		:"Folder",
 		"size"		:1,
 		"dimensions":48,
 		"icon"		:"../footage/folder.png"
@@ -33,7 +33,7 @@ var apps = [
 		"icon"		:"../footage/chrome.png"
 	},
 	{
-		"name"		:"Configurações",
+		"name"		:"Settings",
 		"size"		:3,
 		"dimensions":48,
 		"icon"		:"../footage/settings.png"
@@ -45,13 +45,13 @@ var apps = [
 		"icon"		:"../footage/power.png"
 	},
 	{
-		"name"		:"Relógio",
+		"name"		:"Clock",
 		"size"		:3,
 		"dimensions":45,
 		"icon"		:"../footage/clock.png"
 	},
 	{
-		"name"		:"Lixeira",
+		"name"		:"Trash",
 		"size"		:2,
 		"dimensions":48,
 		"icon"		:"../footage/trash.png"
@@ -190,6 +190,32 @@ var Main = React.createClass({
 
 	addApp: function (name, size) {
 		return function () {
+
+			if(this.state.blocks.length == 0){
+
+			}else{
+				var counter;
+				var minor = 999;
+				var posit = 0;
+
+				for (var i = 0; i < this.state.blocks.length; i++) {
+					if(this.state.blocks[i] == ""){
+						posit = i - 1;
+						counter = counter + 1;
+
+						if(minor > counter || counter !== 0){
+							minor = counter;
+						}
+					}else{
+						posit = i +1 - counter;
+						counter = 0;
+					}
+				}
+				alert('posit: '+posit);
+				alert('counter: '+counter);
+				alert('minor: '+minor);
+			}
+
 			var open = this.state.open;
 			open.push({"name": name, "size": size});
 			this.setState({open: open});
@@ -215,8 +241,8 @@ var Main = React.createClass({
 
 	endTask: function (name, size) {
 		return function () {
+
 			var open = this.state.open;
-			console.log(open);	
 
 			var removedName = open.filter(function (app) {
 				return app.name !== name;
@@ -228,11 +254,22 @@ var Main = React.createClass({
 
 			var fisical = this.state.blocks;
 
-			var removedFisical = fisical.filter(function (fis) {
-				return fis.icon[0] !== "../footage/"+name.toLowerCase()+".png";
-			});
+			// var removedFisical = fisical.filter(function (fis) {
+			// 	return fis.icon[0] !== "../footage/"+name.toLowerCase()+".png";
+			// });
 
-			this.setState({blocks: removedFisical});
+			// this.setState({blocks: removedFisical});
+
+			var newFisical = fisical.map(function (fis, i) {
+				if(fis.icon == "../footage/"+name.toLowerCase()+".png"){
+					return i;
+				}else{
+					return fis;
+				}
+			});
+			console.log(newFisical);
+
+			this.setState({blocks: newFisical});
 
 		}.bind(this);
 	},
