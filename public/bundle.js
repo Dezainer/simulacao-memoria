@@ -356,12 +356,23 @@
 		endTask: function endTask(name, size) {
 			return function () {
 				var open = this.state.open;
+				console.log(open);
 
 				var removedName = open.filter(function (app) {
 					return app.name !== name;
 				});
 
 				this.setState({ open: removedName });
+
+				//--------------------------------------------------
+
+				var fisical = this.state.blocks;
+
+				var removedFisical = fisical.filter(function (fis) {
+					return fis.icon[0] !== "../footage/" + name.toLowerCase() + ".png";
+				});
+
+				this.setState({ blocks: removedFisical });
 			}.bind(this);
 		},
 
