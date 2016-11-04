@@ -73,48 +73,48 @@
 
 	var apps = [{
 		"name": "Arquivos",
-		"size": "1",
-		"dimensions": "48",
+		"size": 1,
+		"dimensions": 48,
 		"icon": "../footage/folder.png"
 	}, {
 		"name": "Terminal",
-		"size": "1",
-		"dimensions": "48",
+		"size": 1,
+		"dimensions": 48,
 		"icon": "../footage/terminal.png"
 	}, {
 		"name": "Sublime",
-		"size": "2",
-		"dimensions": "48",
+		"size": 2,
+		"dimensions": 48,
 		"icon": "../footage/sublime.png"
 	}, {
 		"name": "Spotify",
-		"size": "2",
-		"dimensions": "48",
+		"size": 2,
+		"dimensions": 48,
 		"icon": "../footage/spotify.png"
 	}, {
 		"name": "Chrome",
-		"size": "4",
-		"dimensions": "48",
+		"size": 4,
+		"dimensions": 48,
 		"icon": "../footage/chrome.png"
 	}, {
 		"name": "Configurações",
-		"size": "3",
-		"dimensions": "48",
+		"size": 3,
+		"dimensions": 48,
 		"icon": "../footage/settings.png"
 	}, {
 		"name": "Power",
-		"size": "4",
-		"dimensions": "45",
+		"size": 4,
+		"dimensions": 45,
 		"icon": "../footage/power.png"
 	}, {
 		"name": "Relógio",
-		"size": "3",
-		"dimensions": "45",
+		"size": 3,
+		"dimensions": 45,
 		"icon": "../footage/clock.png"
 	}, {
 		"name": "Lixeira",
-		"size": "2",
-		"dimensions": "48",
+		"size": 2,
+		"dimensions": 48,
 		"icon": "../footage/trash.png"
 	}];
 
@@ -335,14 +335,19 @@
 				open.push({ "name": name, "size": size });
 				this.setState({ open: open });
 
+				//--------------------------------------------------
+
 				var openFisical = this.props.apps.filter(function (app) {
 					return app.name === name;
 				});
 
 				var fisicalIcons = this.state.blocks;
-				fisicalIcons.push({ "icon": openFisical.map(function (fis) {
-						return fis.icon;
-					}) });
+
+				for (var i = 0; i < size; i++) {
+					fisicalIcons.push({ "icon": openFisical.map(function (fis) {
+							return fis.icon;
+						}) });
+				}
 
 				this.setState({ blocks: fisicalIcons });
 			}.bind(this);

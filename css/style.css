@@ -88,10 +88,13 @@ p{
 .window .content{
 	margin-top: 20px;
 	background: rgb(5,2,1);
-	overflow-y: auto;
 }
 #task-manager .content{
 	height: 210px;
+	overflow-y: auto;
+}
+#fisical .content{
+	max-width: 370px;
 }
 .window .content ul{
 	list-style: none;
@@ -136,7 +139,7 @@ p{
 }
 
 .fisical-block{
-	display: flex;
+	display: block;
 }
 .fisical-square{
 	width: 90px;
@@ -144,6 +147,7 @@ p{
 	border: 2px solid rgba(240,100,50,0.1);
 	position: relative;
 	display: inline-block;
+	margin: -1px;
 }
 
 /*border-bottom: 2px solid rgb(240,100,50);*/
