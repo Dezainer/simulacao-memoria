@@ -231,6 +231,7 @@ var Main = React.createClass({
 
 
 				if(isThereSpace){
+
 					Array.min = function( array ){
 					    return Math.min.apply( Math, array );
 					};
@@ -240,16 +241,7 @@ var Main = React.createClass({
 
 					var whereSpace = spacesPosit[whatSpace];
 
-					console.log('spaces: '+spaces);
-					console.log('spacesPosit: '+spacesPosit);
-					console.log('counter: '+counter);
-					console.log('isThereSpace: '+isThereSpace);
-					console.log('smaller: '+smaller);
-					console.log('whatSpace: '+whatSpace);
-					console.log('whereSpace: '+whereSpace);
-
 					posit = whereSpace;
-					alert(posit);
 				}else{
 					posit = this.state.last - size;
 				}
@@ -291,12 +283,6 @@ var Main = React.createClass({
 			//--------------------------------------------------
 
 			var fisical = this.state.blocks;
-
-			// var removedFisical = fisical.filter(function (fis) {
-			// 	return fis.icon[0] !== "../footage/"+name.toLowerCase()+".png";
-			// });
-
-			// this.setState({blocks: removedFisical});
 
 			var newFisical = fisical.map(function (fis, i) {
 				if(fis.icon == "../footage/"+name.toLowerCase()+".png"){

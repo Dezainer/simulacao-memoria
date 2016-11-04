@@ -94,7 +94,9 @@ p{
 	overflow-y: auto;
 }
 #fisical .content{
-	max-width: 370px;
+	max-width: 390px;
+	max-height: 400px;
+	overflow-y: auto;
 }
 .window .content ul{
 	list-style: none;
