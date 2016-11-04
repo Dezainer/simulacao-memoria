@@ -179,41 +179,80 @@ var Fisical = React.createClass({
 
 });
 
+var posit = 0;
+var counter = 0;
+
 var Main = React.createClass({
 
 	getInitialState: function () {
 		return{
 			open: [],
-			blocks:[]
+			blocks: new Array(16),
+			last: 0
 		}
 	},
 
 	addApp: function (name, size) {
 		return function () {
 
-			if(this.state.blocks.length == 0){
-
+			if(this.state.blocks[0] == 'undefined' && this.state.blocks[index] == null){
+				this.state.last = size;
+				posit = 0;
 			}else{
-				var counter;
-				var minor = 999;
-				var posit = 0;
+				this.state.last = this.state.last + size;
 
-				for (var i = 0; i < this.state.blocks.length; i++) {
-					if(this.state.blocks[i] == ""){
-						posit = i - 1;
-						counter = counter + 1;
+				//tiver espaço vazio no meio
+				var spaces = [];
+				var spacesPosit = [];
+				var counter = 0;
 
-						if(minor > counter || counter !== 0){
-							minor = counter;
+				var isThereSpace = false;
+
+				//verificação
+				for (var i = 0; i <= this.state.last; i++) {
+					//se for vazio
+					if (Number.isInteger(this.state.blocks[i])) {
+						//avisa que existe o vazio
+						isThereSpace = true;
+						//conta
+						counter++;
+						//se for a primeira posição de contagem armazena
+						if(counter == 1){
+							spacesPosit.push(i);
 						}
 					}else{
-						posit = i +1 - counter;
+						//quando n é vazio armazena o contador e zera ele
+						if(counter >= size){
+							spaces.push(counter);
+						}
 						counter = 0;
 					}
 				}
-				alert('posit: '+posit);
-				alert('counter: '+counter);
-				alert('minor: '+minor);
+
+
+				if(isThereSpace){
+					Array.min = function( array ){
+					    return Math.min.apply( Math, array );
+					};
+
+					var smaller = Array.min(spaces);
+					var whatSpace = spaces.indexOf(smaller);
+
+					var whereSpace = spacesPosit[whatSpace];
+
+					console.log('spaces: '+spaces);
+					console.log('spacesPosit: '+spacesPosit);
+					console.log('counter: '+counter);
+					console.log('isThereSpace: '+isThereSpace);
+					console.log('smaller: '+smaller);
+					console.log('whatSpace: '+whatSpace);
+					console.log('whereSpace: '+whereSpace);
+
+					posit = whereSpace;
+					alert(posit);
+				}else{
+					posit = this.state.last - size;
+				}
 			}
 
 			var open = this.state.open;
@@ -227,9 +266,8 @@ var Main = React.createClass({
 			});
 
 			var fisicalIcons = this.state.blocks;
-
-			for (var i = 0; i < size; i++) {
-				fisicalIcons.push({"icon": openFisical.map(function (fis) {
+			for (var i = posit; i < posit + size; i++) {
+				fisicalIcons[i] = ({"icon": openFisical.map(function (fis) {
 					return fis.icon;
 				})});
 			}
