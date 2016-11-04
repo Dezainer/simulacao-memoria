@@ -259,7 +259,63 @@
 	});
 
 	var Fisical = _react2.default.createClass({
-		displayName: 'Fisical'
+		displayName: 'Fisical',
+
+
+		render: function render() {
+
+			var Blocks = this.props.blocks.map(function (block, i) {
+				return _react2.default.createElement(
+					'div',
+					{ className: 'fisical-square' },
+					_react2.default.createElement('img', { className: 'icon', width: '90px', height: '90px', src: block.icon })
+				);
+			});
+
+			return _react2.default.createElement(
+				'div',
+				{ className: 'window', id: 'fisical' },
+				_react2.default.createElement(
+					'div',
+					{ className: 'header' },
+					_react2.default.createElement(
+						'span',
+						{ className: 'button', id: 'close' },
+						' '
+					),
+					_react2.default.createElement(
+						'span',
+						{ className: 'button', id: 'max' },
+						' '
+					),
+					_react2.default.createElement(
+						'span',
+						{ className: 'button', id: 'min' },
+						' '
+					)
+				),
+				_react2.default.createElement(
+					'div',
+					{ className: 'container' },
+					_react2.default.createElement(
+						'h1',
+						null,
+						'Mem\xF3ria F\xEDsica'
+					),
+					_react2.default.createElement(
+						'p',
+						null,
+						'Mostra como os softwares ficam alocados no disco.'
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'content' },
+						Blocks
+					)
+				)
+			);
+		}
+
 	});
 
 	var Main = _react2.default.createClass({
@@ -268,7 +324,8 @@
 
 		getInitialState: function getInitialState() {
 			return {
-				open: []
+				open: [],
+				blocks: []
 			};
 		},
 
@@ -277,6 +334,17 @@
 				var open = this.state.open;
 				open.push({ "name": name, "size": size });
 				this.setState({ open: open });
+
+				var openFisical = this.props.apps.filter(function (app) {
+					return app.name === name;
+				});
+
+				var fisicalIcons = this.state.blocks;
+				fisicalIcons.push({ "icon": openFisical.map(function (fis) {
+						return fis.icon;
+					}) });
+
+				this.setState({ blocks: fisicalIcons });
 			}.bind(this);
 		},
 
@@ -297,13 +365,14 @@
 				'div',
 				null,
 				_react2.default.createElement(AppBar, { addApp: this.addApp }),
-				_react2.default.createElement(Manager, { open: this.state.open, end: this.endTask })
+				_react2.default.createElement(Manager, { open: this.state.open, end: this.endTask }),
+				_react2.default.createElement(Fisical, { blocks: this.state.blocks })
 			);
 		}
 
 	});
 
-	_reactDom2.default.render(_react2.default.createElement(Main, null), document.getElementById('main'));
+	_reactDom2.default.render(_react2.default.createElement(Main, { apps: apps }), document.getElementById('main'));
 
 /***/ },
 /* 3 */
