@@ -58,25 +58,18 @@ var apps = [
 	}
 ];
 
-var open = [
-	{
-		"name": "Chrome",
-		"size": 4
-	},
-	{
-		"name": "Spotify",
-		"size": 2
-	}
-];
+// var open = [
+// 	{
+// 		"name": "Chrome",
+// 		"size": 4
+// 	},
+// 	{
+// 		"name": "Spotify",
+// 		"size": 2
+// 	}
+// ];
 
 var App = React.createClass({
-
-	handleClick: function (name, size) {
-		return function () {
-			open.push({"name": name, "size": size});
-			console.log(open);
-		}.bind(this);
-	},
 
 	render: function () {
 		return(	
@@ -84,7 +77,7 @@ var App = React.createClass({
 				{
 					this.props.apps.map(function (apps, index) {
 						return(
-							<li key={index} onClick={this.handleClick(apps.name, apps.size)}>
+							<li key={index} onClick={this.props.add(apps.name, apps.size)}>
 								<img className="app" src={apps.icon} width={apps.dimensions} height={apps.dimensions}></img>
 							</li>
 						);
@@ -102,22 +95,13 @@ var AppBar = React.createClass({
 		return(
 			<div className="appbar">
 				<div className="apps">
-					<App apps={apps}/>
+					<App apps={apps} add={this.props.addApp}/>
 				</div>
 			</div>
 		);
 	}
 
 });
-
-ReactDOM.render(
-	<AppBar/>,
-	document.getElementById('appbar')
-);
-
-
-
-
 
 function inner(size) {
 	var inner = [];
@@ -131,34 +115,24 @@ function inner(size) {
 
 var Manager = React.createClass({
 
-	getInitialState: function () {
-		return{
-			open: []
-		}
-	},
-
-	componentWillMount: function () {
-		this.setState({open: this.props.open});
-	},
-
-	componentWillReceiveProps: function (newProps) {
-		this.setState({open: newProps.open});
-	},
-
 	render: function () {
 
-		var oList = this.state.open.map(function (open, i) {
+		var oList = this.props.open.map(function (open, i) {
 			return(
 				<div>
 					<ul className="outter-list">
-						<li className="name"><div className="seta"><span>></span></div>{open.name}</li>
+						<li className="name">
+							<div className="seta"><span>></span></div>
+							{open.name}
+							<span className="end-task" onClick={this.props.end(open.name, open.size)}>X</span>
+						</li>
 						<ul className="inner-list">
 							{inner(open.size)}
 						</ul>
 					</ul>
 				</div>
 			);
-		});
+		}, this);
 
 		return(
 			<div className="window" id="drag">
@@ -182,7 +156,46 @@ var Manager = React.createClass({
 
 });
 
+var Main = React.createClass({
+
+	getInitialState: function () {
+		return{
+			open: []
+		}
+	},
+
+	addApp: function (name, size) {
+		return function () {
+			var open = this.state.open;
+			open.push({"name": name, "size": size});
+			this.setState({open: open});
+		}.bind(this);
+	},
+
+	endTask: function (name, size) {
+		return function () {
+			var open = this.state.open;
+
+			var removedName = open.filter(function (app) {
+				return app.name !== name;
+			});
+
+			this.setState({open: removedName});
+		}.bind(this);
+	},
+
+	render: function () {
+		return(
+			<div>
+				<AppBar addApp={this.addApp} />
+				<Manager open={this.state.open} end={this.endTask}/>
+			</div>
+		);
+	}
+
+});
+
 ReactDOM.render(
-	<Manager open={open}/>,
-	document.getElementById('manager')
+	<Main/>,
+	document.getElementById('main')
 );

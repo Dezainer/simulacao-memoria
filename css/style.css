@@ -98,23 +98,15 @@ p{
 	display: inline-block;
 	padding-right: 15px;
 }
+.window .content .end-task{
+	float: right;
+	padding-right: 10px;
+}
 .window .content ul li div span{
 	transform: rotate(0deg);
 	display: inline-block;
 	transition: all 0.1s ease-in-out;
 }
-/*.window .content .name:before{
-	content: '';
-	width: 8px;
-	height: 8px;
-	z-index: 2;
-	position: absolute;
-	top: 14px;
-	left: 13px;
-	border-left: 2px solid rgb(5,2,1);
-	border-bottom: 2px solid rgb(5,2,1);
-	transform: rotate(-45deg);
-}*/
 .window .content ul ul{
 	margin-left: 40px;
 }

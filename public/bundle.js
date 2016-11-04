@@ -118,24 +118,20 @@
 		"icon": "../footage/trash.png"
 	}];
 
-	var open = [{
-		"name": "Chrome",
-		"size": 4
-	}, {
-		"name": "Spotify",
-		"size": 2
-	}];
+	// var open = [
+	// 	{
+	// 		"name": "Chrome",
+	// 		"size": 4
+	// 	},
+	// 	{
+	// 		"name": "Spotify",
+	// 		"size": 2
+	// 	}
+	// ];
 
 	var App = _react2.default.createClass({
 		displayName: 'App',
 
-
-		handleClick: function handleClick(name, size) {
-			return function () {
-				open.push({ "name": name, "size": size });
-				console.log(open);
-			}.bind(this);
-		},
 
 		render: function render() {
 			return _react2.default.createElement(
@@ -144,7 +140,7 @@
 				this.props.apps.map(function (apps, index) {
 					return _react2.default.createElement(
 						'li',
-						{ key: index, onClick: this.handleClick(apps.name, apps.size) },
+						{ key: index, onClick: this.props.add(apps.name, apps.size) },
 						_react2.default.createElement('img', { className: 'app', src: apps.icon, width: apps.dimensions, height: apps.dimensions })
 					);
 				}, this)
@@ -164,14 +160,12 @@
 				_react2.default.createElement(
 					'div',
 					{ className: 'apps' },
-					_react2.default.createElement(App, { apps: apps })
+					_react2.default.createElement(App, { apps: apps, add: this.props.addApp })
 				)
 			);
 		}
 
 	});
-
-	_reactDom2.default.render(_react2.default.createElement(AppBar, null), document.getElementById('appbar'));
 
 	function inner(size) {
 		var inner = [];
@@ -192,23 +186,9 @@
 		displayName: 'Manager',
 
 
-		getInitialState: function getInitialState() {
-			return {
-				open: []
-			};
-		},
-
-		componentWillMount: function componentWillMount() {
-			this.setState({ open: this.props.open });
-		},
-
-		componentWillReceiveProps: function componentWillReceiveProps(newProps) {
-			this.setState({ open: newProps.open });
-		},
-
 		render: function render() {
 
-			var oList = this.state.open.map(function (open, i) {
+			var oList = this.props.open.map(function (open, i) {
 				return _react2.default.createElement(
 					'div',
 					null,
@@ -227,7 +207,12 @@
 									'>'
 								)
 							),
-							open.name
+							open.name,
+							_react2.default.createElement(
+								'span',
+								{ className: 'end-task', onClick: this.props.end(open.name, open.size) },
+								'X'
+							)
 						),
 						_react2.default.createElement(
 							'ul',
@@ -236,7 +221,7 @@
 						)
 					)
 				);
-			});
+			}, this);
 
 			return _react2.default.createElement(
 				'div',
@@ -284,7 +269,48 @@
 
 	});
 
-	_reactDom2.default.render(_react2.default.createElement(Manager, { open: open }), document.getElementById('manager'));
+	var Main = _react2.default.createClass({
+		displayName: 'Main',
+
+
+		getInitialState: function getInitialState() {
+			return {
+				open: []
+			};
+		},
+
+		addApp: function addApp(name, size) {
+			return function () {
+				var open = this.state.open;
+				open.push({ "name": name, "size": size });
+				this.setState({ open: open });
+			}.bind(this);
+		},
+
+		endTask: function endTask(name, size) {
+			return function () {
+				var open = this.state.open;
+
+				var removedName = open.filter(function (app) {
+					return app.name !== name;
+				});
+
+				this.setState({ open: removedName });
+			}.bind(this);
+		},
+
+		render: function render() {
+			return _react2.default.createElement(
+				'div',
+				null,
+				_react2.default.createElement(AppBar, { addApp: this.addApp }),
+				_react2.default.createElement(Manager, { open: this.state.open, end: this.endTask })
+			);
+		}
+
+	});
+
+	_reactDom2.default.render(_react2.default.createElement(Main, null), document.getElementById('main'));
 
 /***/ },
 /* 3 */
@@ -301,7 +327,7 @@
 	var rotate = true;
 	var deg = 0;
 
-	(0, _jquery2.default)('.outter-list').click(function () {
+	(0, _jquery2.default)(document.body).on('click', '.seta', function () {
 		if (rotate) {
 			deg = 90;
 			rotate = false;
@@ -310,8 +336,8 @@
 			rotate = true;
 		}
 
-		(0, _jquery2.default)(this).find('.seta').children().css('transform', 'rotate(' + deg + 'deg)');
-		(0, _jquery2.default)(this).find('.inner-list').toggle();
+		(0, _jquery2.default)(this).children().css('transform', 'rotate(' + deg + 'deg)');
+		(0, _jquery2.default)(this).parent().parent().find('.inner-list').toggle();
 	});
 
 /***/ },

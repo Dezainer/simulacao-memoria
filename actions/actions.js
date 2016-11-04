@@ -3,7 +3,7 @@ import $ from 'jquery';
 var rotate = true;
 var deg = 0;
 
-$('.outter-list').click(function () {
+$(document.body).on('click', '.seta', function () {
 	if(rotate){
 		deg = 90;
 		rotate = false;
@@ -12,6 +12,6 @@ $('.outter-list').click(function () {
 		rotate = true;
 	}
 
-	$(this).find('.seta').children().css('transform', 'rotate('+deg+'deg)');
-	$(this).find('.inner-list').toggle();
+	$(this).children().css('transform', 'rotate('+deg+'deg)');
+	$(this).parent().parent().find('.inner-list').toggle();
 });
